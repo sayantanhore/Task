@@ -10,7 +10,7 @@ export default class AddTodo extends Component {
   }
   render() {
     return (
-      <TextInput underlineColorAndroid={'transparent'} style={styles.addTodo}/>
+      <TextInput placeholder="Add a todo" underlineColorAndroid={'transparent'} style={styles.addTodo}/>
     );
   }
 }
@@ -18,7 +18,8 @@ export default class AddTodo extends Component {
 const styles = StyleSheet.create({
   addTodo: {
     flex: 1,
-    fontSize: 25,
-    borderWidth: 0
+    fontSize: 20,
+    paddingLeft: 10,
+    paddingRight: 10
   }
 });

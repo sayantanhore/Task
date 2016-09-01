@@ -37,7 +37,7 @@ export default class Todo extends Component {
   render() {
     let todos;
     if (this.state.todoList.length === 0) {
-      todos = <View style={styles.emptyView}><Text>You haven't got to do anything!</Text></View>;
+      todos = <View style={styles.emptyView}><Text style={styles.emptyViewText}>You haven't got to do anything!</Text></View>;
     } else {
       todos = <ScrollView style={styles.scrollView}>
         {this.state.todoList.map((todo, index) => {
@@ -64,7 +64,12 @@ export default class Todo extends Component {
 const styles = StyleSheet.create({
   emptyView: {
     flex: 8,
-    textAlign: 'center'
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  emptyViewText: {
+    fontSize: 20
   },
   scrollView: {
     flex: 8,
