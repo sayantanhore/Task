@@ -8,39 +8,42 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
+import {store} from './store';
+import {util} from './util';
 
 export default class Todo extends Component {
   constructor() {
     super();
+    let todoList = store.todoList;
+    let hashCode;
+    hashCode = util.getHashCode('Do laundry');
+    todoList.insert({id: hashCode, task: 'Do laundry', completed: false});
+    hashCode = util.getHashCode('Pick groceries');
+    todoList.insert({id: hashCode, task: 'Pick groceries', completed: false});
+    hashCode = util.getHashCode('Submit project proposals');
+    todoList.insert({id: hashCode, task: 'Submit project proposals', completed: false});
     this.state = {
-      todoList: [
-        {task: 'Do laundry', completed: false},
-        {task: 'Pick groceries', completed: false},
-        {task: 'Submit project proposals', false}
-      ]
+      changed: false
     };
+  }
+  update() {
+    this.setState({changed: true});
   }
   completeTodo(itemToComplete, index) {
     itemToComplete.completed = true;
-    this.state.todoList.splice(index, 1, itemToComplete);
-    let todoListChanged = this.state.todoList;
-    this.setState({todoList: todoListChanged});
+    this.update();
   }
   removeTodo(itemToRemove) {
-    let todoListChanged = this.state.todoList.filter((todo) => {
-      if (todo.task !== itemToRemove.task) {
-        return true;
-      }
-    });
-    this.setState({todoList: todoListChanged});
+    store.todoList.remove(itemToRemove);
+    this.update();
   }
   render() {
     let todos;
-    if (this.state.todoList.length === 0) {
+    if (store.todoList.get().length === 0) {
       todos = <View style={styles.emptyView}><Text style={styles.emptyViewText}>You haven't got to do anything!</Text></View>;
     } else {
       todos = <ScrollView style={styles.scrollView}>
-        {this.state.todoList.map((todo, index) => {
+        {store.todoList.get().map((todo, index) => {
           return (
             <View style={styles.todo} key={index}>
               <TouchableOpacity onPress={this.completeTodo.bind(this, todo, index)}>

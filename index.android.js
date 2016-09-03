@@ -18,12 +18,19 @@ import Todo from './todo';
 import AddTodo from './addTodo';
 
 class Task extends Component {
+  updateTodoList() {
+    console.log('Todoooooooo', this.refs.todoList.update);
+    this.refs.todoList.update();
+  }
+  componentDidMount() {
+
+  }
   render() {
     return (
       <View style={styles.container}>
         <Today></Today>
-        <Todo></Todo>
-        <AddTodo></AddTodo>
+        <Todo ref="todoList"></Todo>
+        <AddTodo newTodoAdded={this.updateTodoList.bind(this)}></AddTodo>
       </View>
     );
   }
