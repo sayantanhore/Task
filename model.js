@@ -37,7 +37,7 @@ export default class Model {
     }
   }
   replaceAt(index, item) {
-    this.data.splice(index, 1, itemToComplete);
+    this.data.splice(index, 1, item);
   }
   get () {
     return this.data;
